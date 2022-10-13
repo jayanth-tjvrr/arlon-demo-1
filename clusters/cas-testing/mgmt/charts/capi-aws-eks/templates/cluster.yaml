@@ -23,9 +23,13 @@ metadata:
   name: {{ .Values.global.clusterName }}-control-plane
   namespace: {{ .Values.global.clusterName }}
 spec:
+  eksClusterName: {{ .Values.global.clusterName }}
   region: {{ .Values.global.region }}
   sshKeyName: {{ .Values.global.sshKeyName }}
   version: {{ .Values.global.kubernetesVersion }}
+  identityRef:
+    kind: AWSClusterStaticIdentity
+    name: {{ .Values.global.DUcloudProvider }}
 ---
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
