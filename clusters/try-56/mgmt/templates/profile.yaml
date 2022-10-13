@@ -1,0 +1,27 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: try-56-profile-dynamic-1
+  namespace: argocd
+  finalizers:
+  # This solves issue #17
+  - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  syncPolicy:
+    automated:
+      prune: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  project: default
+  source:
+    repoURL: https://github.com/ShaunakJoshi1407/arlon-demo
+    path: profiles/dynamic-1/mgmt
+    targetRevision: HEAD
+    helm:
+      parameters:
+      - name: clusterName
+        value: try-56
+      - name: profileAppName
+        value: try-56-profile-dynamic-1
