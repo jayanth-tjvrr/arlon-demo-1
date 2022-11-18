@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cas-working-profile-dynamic-2
+  name: cas-working-profile-cas-profile
   namespace: argocd
   finalizers:
   # This solves issue #17
@@ -16,12 +16,12 @@ spec:
     namespace: argocd
   project: default
   source:
-    repoURL: https://github.com/ShaunakJoshi1407/arlon-demo
-    path: profiles/dynamic-2/mgmt
+    repoURL: https://github.com/jayanth-tjvrr/arlon-test
+    path: profiles/cas-profile/mgmt
     targetRevision: HEAD
     helm:
       parameters:
       - name: clusterName
         value: cas-working
       - name: profileAppName
-        value: cas-working-profile-dynamic-2
+        value: cas-working-profile-cas-profile
