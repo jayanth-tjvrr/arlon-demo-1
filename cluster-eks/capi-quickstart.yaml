@@ -2,7 +2,6 @@ apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
   name: capi-quickstart
-  namespace: default
 spec:
   clusterNetwork:
     pods:
@@ -21,8 +20,10 @@ apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: AWSManagedControlPlane
 metadata:
   name: capi-quickstart-control-plane
-  namespace: default
 spec:
+  identityRef:
+    kind: AWSClusterStaticIdentity
+    name: 3b8f28f6ab5c4ae98fadb53ab15d5908-aws
   region: us-west-2
   sshKeyName: shaunak-key-2
   version: v1.24.0
@@ -31,7 +32,6 @@ apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
 metadata:
   name: capi-quickstart-md-0
-  namespace: default
 spec:
   clusterName: capi-quickstart
   replicas: 3
@@ -55,7 +55,6 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachineTemplate
 metadata:
   name: capi-quickstart-md-0
-  namespace: default
 spec:
   template:
     spec:
@@ -67,6 +66,5 @@ apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: EKSConfigTemplate
 metadata:
   name: capi-quickstart-md-0
-  namespace: default
 spec:
   template: {}
